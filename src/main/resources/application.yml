@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://localhost;databaseName=MyDB
+    username: sa
+    password: Password1
+
+  jpa:
+   show-sql: true
+   hibernate:
+    dialect: org.hibernate.dialect.SQLServer2012Dialect
+    ddl-auto: none
+    naming:
+      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+cron:
+  expression: "0,5,10,15,20,25,30,35,40,45,50,55 * * * * *"

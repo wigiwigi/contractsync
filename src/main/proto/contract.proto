@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "ru.sberbank.grpcModel";
+option java_outer_classname = "ContractServiceProto";
+
+service ContractService {
+  rpc create(ContractCreateRequest) returns (ContractResponse) {}
+  rpc update(ContractUpdateRequest) returns (ContractResponse) {}
+}
+
+message ContractCreateRequest {
+  Contract contract = 1;
+}
+
+message ContractUpdateRequest {
+  Contract contract = 1;
+}
+
+message ContractResponse {
+  int64 id = 1;
+  string number = 2;
+  int64 version = 3;
+}
+
+message Contract {
+  string number = 1;
+  enum ContractOwnerType {
+    INDIVIDUAL = 0;
+    LEGAL_ENTITY = 1;
+  }
+  ContractOwnerType ownerType = 2;
+  string date = 3;
+  enum ContractType {
+    PRIMARY = 0;
+    IIA = 1;
+  }
+  ContractType type = 4;
+  Conditions conditions = 5;
+  repeated Connection connections = 6;
+}
+
+message Conditions {
+  Tariff tariff = 1;
+}
+
+message Tariff {
+  string code = 1;
+  string startDate = 2;
+}
+
+message Connection {
+  string epkId = 1;
+  enum ConnectionType {
+    INVESTOR = 0;
+    TRUSTED_PERSON = 1;
+    LEGAL_REPRESENTATIVE = 2;
+    INSOLVENCY_REPRESENTATIVE = 3;
+    TRUSTOR = 4;
+    BENEFICIARY = 5;
+    SOLE_EXECUTIVE_BODY = 6;
+    OTHER = 7;
+  }
+  ConnectionType connectionType = 2;
+}
