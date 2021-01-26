@@ -1,4 +1,4 @@
-package ru.sberbank.contractsync.schedulingtasks;
+package ru.sberbank.contractsync.job;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -7,27 +7,31 @@ import org.springframework.stereotype.Component;
 import ru.sberbank.contractsync.entity.ContractSyncEntity;
 import ru.sberbank.contractsync.repository.ContractSyncRepository;
 
-import javax.persistence.StoredProcedureQuery;
-
 
 @Component
-@EnableJpaRepositories("ru.sberbank.contractsync.repository")
-public class ContractsyncScheduledTask {
-    private static final Logger log = LoggerFactory.getLogger(ContractsyncScheduledTask.class);
+//@EnableJpaRepositories("ru.sberbank.contractsync.repository")
+public class ContractSyncScheduledTask {
+    private static final Logger log = LoggerFactory.getLogger(ContractSyncScheduledTask.class);
 
-    @Autowired
     ContractSyncRepository contractSyncRepository;
 
-    @Scheduled(cron = "${cron.expression}")//(cron="*/5 * * * * *")
+    public ContractSyncScheduledTask(ContractSyncRepository contractSyncRepository) {
+        this.contractSyncRepository = contractSyncRepository;
+    }
+
+    @Scheduled(cron = "${cron.expression}")
     public void processDataFromDB() {
 
-        //ContractSyncEntity contractReadyForProcessing = contractSyncRepository.getContractReadyForProcessing();
         ContractSyncEntity contractReadyForProcessing = contractSyncRepository.getContractReadyForProcessing();
-        if(contractReadyForProcessing != null)
+
+        if(contractReadyForProcessing != null) {
             System.out.println(">>>>>> processing record ID=" + contractReadyForProcessing.getID());
+
+
+//            throw new RuntimeException("exited");
+        }
         else System.out.println(">>>>>> no records to process");
-        //System.out.println(">>>" + contractSyncRepository.findAll());
-        //next: обработка полученной записи
+
     }
 
 }

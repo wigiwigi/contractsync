@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import ru.sberbank.contractsync.entity.ContractSyncEntity;
 
-@Repository
-@Component
+//@Repository
+//@Component
 public interface ContractSyncRepository extends JpaRepository<ContractSyncEntity, Long> {
 
     //не работает почему-то

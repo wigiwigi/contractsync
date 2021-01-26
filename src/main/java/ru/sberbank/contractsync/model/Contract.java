@@ -6,6 +6,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
+@XmlRootElement(name = "contract")
 public class Contract{
 
     private Long id;

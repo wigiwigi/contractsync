@@ -5,7 +5,7 @@ public enum SyncStatus {
 
     private Character code;
 
-    private SyncStatus(Character code) {
+    SyncStatus(Character code) {
         this.code = code;
     }
 
